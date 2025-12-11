@@ -15,7 +15,7 @@
             <a href="{{ path('about') }}" 
                class="nav-item nav-link {{ app.request.attributes.get('_route') == 'about' ? 'active' : '' }}">About</a>
             
-            {# PRACTICE (service.html) #}
+            {# PRACTICE (service.html) _navigation sabe que 'practice' es service.html.twig gracias al controlador 'PageController' #}
             <a href="{{ path('practice') }}" 
                class="nav-item nav-link {{ app.request.attributes.get('_route') == 'practice' ? 'active' : '' }}">Practice</a>
             

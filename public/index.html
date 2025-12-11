@@ -27,7 +27,12 @@
 </head>
 
 <body>
-    <!-- Header Start -->
+    <!-- Header Start (este es el menú/header común que guardaremos en base.html.twig y que usarán los que extiendan de él) -->
+        <!-- 
+        - Qué es: La barra de arriba con el logo, el teléfono y el menú de navegación.
+        - Dónde va: Al base.html.twig.
+        - En tu index.html.twig: NO LO PONGAS. (Ya lo hereda del base).
+        -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 bg-secondary d-none d-lg-block">
@@ -98,8 +103,15 @@
     </div>
     <!-- Header End -->
 
+<!-- A PARTIR DE AQUI COMIENZA EL CONTENIDO QUE PONDREMOS EN index.html.twig-->
 
     <!-- Carousel Start -->
+        <!-- 
+        - Qué es: El pase de diapositivas grande con imágenes que se mueven (Slider).
+        - Dónde va: Es contenido exclusivo de la portada.
+        - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid p-0 mb-5 pb-5">
         <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
@@ -140,6 +152,12 @@
 
 
     <!-- About Start -->
+         <!-- 
+            - Qué es: La sección que dice "25 Years Experience" con una foto al lado.
+            - Dónde va: Es contenido de la portada.
+            - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %} (debajo del Carousel).
+         -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
@@ -160,6 +178,11 @@
 
 
     <!-- Services Start -->
+     <!-- 
+        - Qué es: Los recuadros que dicen "Civil Law", "Family Law", etc.
+        - Dónde va: Es contenido de la portada.
+        - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+     -->
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
@@ -209,6 +232,12 @@
 
 
     <!-- Appointment Start -->
+        <!-- 
+        - Qué es: El formulario grande para pedir cita ("Get An Appointment").
+        - Dónde va: Es contenido de la portada.
+        - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="bg-appointment rounded">
@@ -261,6 +290,12 @@
 
 
     <!-- Features Start -->
+        <!-- 
+            - Qué es: La sección "Why Choose Us" (Por qué elegirnos) con los números 01, 02, 03.
+            - Dónde va: Es contenido de la portada.
+            - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
@@ -309,6 +344,12 @@
 
 
     <!-- Action Start -->
+        <!-- 
+            - Qué es: Esa franja horizontal que dice "Call us now for a Free Consultation".
+            - Dónde va: Es contenido de la portada.
+            - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="bg-action rounded" style="height: 500px;">
@@ -325,6 +366,12 @@
 
 
     <!-- Team Start -->
+        <!-- 
+            - Qué es: Las fotos de los abogados ("Meet Our Attorneys").
+            - Dónde va: Es contenido de la portada.
+            - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="text-center pb-2">
@@ -404,6 +451,12 @@
 
 
     <!-- Testimonial Start -->
+        <!-- 
+            - Qué es: Lo que dicen los clientes ("What Our Clients Say").
+            - Dónde va: Es contenido de la portada.
+            - En tu index.html.twig: COPIAR Y PEGAR dentro de {% block body %}.
+        -->
+
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="text-center pb-5">
@@ -465,7 +518,13 @@
     <!-- Testimonial End -->
 
 
-    <!-- Footer Start -->
+    <!-- Footer Start (este es el footer que copiaremos en base.html.twig) -->
+         <!-- 
+            - Qué es: La parte negra del final con la dirección, links rápidos y copyright.
+            - Dónde va: Al base.html.twig (o _footer.html.twig si lo separaste).
+            - En tu index.html.twig: NO LO PONGAS. (Ya lo hereda del base).
+         -->
+            
     <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row mt-5">
             <div class="col-lg-4">

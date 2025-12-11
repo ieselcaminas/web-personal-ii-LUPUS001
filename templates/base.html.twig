@@ -1,3 +1,4 @@
+{# Base: Tiene el esqueleto común (Cabecera, Menú, Pie de página, Scripts). #}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,20 +7,29 @@
     <title>{% block title %}JUSTICE - Law Firm{% endblock %}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     
+    <!-- Favicon -->
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
 
+    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
 
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
+    <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
+    <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
+    
+    {# HEADER/MENÚ COMÚN QUE UTILIZARÁN TODOS LOS TWIG QUE EXTIENDAN DE BASE #}
+        
+        {# este bloque div se pone antes del {% block body %} para asegurar que el menú y el logo aparezcan en la parte superior de todas las páginas #}
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 bg-secondary d-none d-lg-block">
@@ -66,7 +76,13 @@
             </div>
         </div>
     </div>
-    {% block body %}{% endblock %}  
+    {# FINAL DEL HEADER/MENÚ #}
+
+
+    {% block body %}{% endblock %}
+
+
+    {# FOOTER COMÚN QUE USARÁN TODOS LOS TWIG #}
     <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row mt-5">
             <div class="col-lg-4">
@@ -152,8 +168,12 @@
             </div>
         </div>
     </div>
+    {# Final Footer #}
+
+    <!-- Back to Top -->
     <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
@@ -163,10 +183,38 @@
     <script src="{{ asset('lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
     <script src="{{ asset('lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
+    <!-- Contact Javascript File -->
     <script src="{{ asset('mail/jqBootstrapValidation.min.js') }}"></script>
     <script src="{{ asset('mail/contact.js') }}"></script>
 
+    <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>
+
+{# 
+    El archivo base.html.twig debe de quedar así, lo cual es la estructura estándar de Symfony:
+
+    <!DOCTYPE html>
+    <html>
+    <head>...</head>
+
+    <body>
+        1. (Header/Menú)
+        <div class="container-fluid">
+            ... Logo ...
+            ... Teléfonos ...
+            ... Menú ...
+        </div>
+
+        2. AQUÍ SE INYECTA EL CONTENIDO DE CADA PÁGINA 
+        {% block body %}{% endblock %}
+
+        3. ESTO ES EL PIE DE PÁGINA 
+        <div class="footer">
+            ... Copyright ...
+        </div>
+    </body>
+    </html>
+#}
