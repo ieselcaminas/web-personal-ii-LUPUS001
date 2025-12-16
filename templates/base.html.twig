@@ -81,6 +81,17 @@
 
     {% block body %}{% endblock %}
 
+    {# Para mostrarle al usuario el mensaje de confirmación del formulario #}
+    {% for message in app.flashes('success') %}
+    <div class="container mt-4">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
 
     {# FOOTER COMÚN QUE USARÁN TODOS LOS TWIG #}
     <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">

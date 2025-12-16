@@ -3,23 +3,18 @@
 {% block title %}Contact Us - Justice{% endblock %}
 
 {% block body %}
-    <!-- Page Header Start -->
     <div class="container-fluid bg-page-header" style="margin-bottom: 90px;">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
                 <h3 class="display-3 text-white text-uppercase">Contact</h3>
                 <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{ path('index') }}">Home</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
                     <p class="m-0 text-uppercase">Contact</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Page Header End -->
-
-
-    <!-- Contact Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="text-center pb-2">
@@ -30,33 +25,94 @@
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="contact-form">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        
+                        {{ form_start(form, {'attr': {'name': 'sentMessage', 'id': 'contactForm', 'novalidate': 'novalidate'}}) }}
+                        
+                            {{ form_errors(form) }}
+                            
                             <div class="form-row">
+                                {# Primera columna: Nombre (firstName) #}
                                 <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                    {{ form_row(form.firstName, {
+                                        'attr': {
+                                            'class': 'form-control p-4',
+                                            'placeholder': 'Your Name',
+                                            'data-validation-required-message': 'Please enter your name'
+                                        },
+                                        'label': false
+                                    }) }}
                                     <p class="help-block text-danger"></p>
                                 </div>
+                                
+                                {# Segunda columna: Apellido (lastName) #}
                                 <div class="col-sm-6 control-group">
-                                    <input type="email" class="form-control p-4" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                    {{ form_row(form.lastName, {
+                                        'attr': {
+                                            'class': 'form-control p-4',
+                                            'placeholder': 'Your Last Name'
+                                        },
+                                        'label': false
+                                    }) }}
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
+                            
+                            {# Email #}
                             <div class="control-group">
-                                <input type="text" class="form-control p-4" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                {{ form_row(form.email, {
+                                    'attr': {
+                                        'class': 'form-control p-4',
+                                        'placeholder': 'Your Email',
+                                        'data-validation-required-message': 'Please enter your email'
+                                    },
+                                    'label': false
+                                }) }}
                                 <p class="help-block text-danger"></p>
                             </div>
+                            
+                            {# Subject #}
                             <div class="control-group">
-                                <textarea class="form-control p-4" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                {{ form_row(form.subject, {
+                                    'attr': {
+                                        'class': 'form-control p-4',
+                                        'placeholder': 'Subject',
+                                        'data-validation-required-message': 'Please enter a subject'
+                                    },
+                                    'label': false
+                                }) }}
                                 <p class="help-block text-danger"></p>
                             </div>
+                            
+                            {# Message #}
+                            <div class="control-group">
+                                {{ form_row(form.message, {
+                                    'attr': {
+                                        'class': 'form-control p-4',
+                                        'rows': 6,
+                                        'placeholder': 'Message',
+                                        'data-validation-required-message': 'Please enter your message'
+                                    },
+                                    'label': false
+                                }) }}
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            
+                            {# Botón Send #}
                             <div>
-                                <button class="btn btn-primary btn-block" type="submit" id="sendMessageButton">Send Message</button>
+                                {{ form_widget(form.Send, {
+                                    'attr': {
+                                        'class': 'btn btn-primary btn-block',
+                                        'id': 'sendMessageButton'
+                                    }
+                                }) }}
                             </div>
-                        </form>
+
+                        {{ form_end(form) }}
                     </div>
                 </div>
                 <div class="col-lg-6" style="min-height: 400px;">
                     <div class="position-relative h-100 rounded overflow-hidden">
+                        {# Nota: La URL del iframe es inválida. Deberías usar una URL de mapa de Google Maps o un servicio similar. #}
                         <iframe style="width: 100%; height: 100%; object-fit: cover;"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
                         frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
@@ -65,5 +121,4 @@
             </div>
         </div>
     </div>
-    <!-- Contact End -->
-{% endblock %}
+    {% endblock %}
