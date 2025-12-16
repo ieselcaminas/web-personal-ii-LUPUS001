@@ -59,11 +59,17 @@ class PageController extends AbstractController
             // Para confirmarle al usuario que se ha enviado el formulario
             $this->addFlash('success', '¡Gracias por contactarnos! Tu mensaje ha sido enviado correctamente.');
 
-            //Para redigirir al index cuando se envie el formulario
-            return $this->redirectToRoute('index', []);
+            // Cambiar la redirección a 'thankyou'
+            return $this->redirectToRoute('thankyou');
         }
         return $this->render('page/contact.html.twig', array(
             'form' => $form->createView()    
         ));
+    }
+
+    #[Route('/thank-you', name: 'thankyou')]
+    public function thankyou(): Response 
+    {
+        return $this->render('page/thankyou.html.twig', []);
     }
 }

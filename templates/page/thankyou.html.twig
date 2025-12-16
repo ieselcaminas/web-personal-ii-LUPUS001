@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mensaje Enviado{% endblock %}
+
+{% block body %}
+    <div class="container-fluid bg-page-header" style="margin-bottom: 90px;">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h3 class="display-3 text-white text-uppercase">¡Gracias!</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                {# Usando las clases de alerta para un diseño tipo Jumbotron #}
+                <div class="alert alert-success p-5" role="alert">
+                    <h1 class="display-4 text-primary mb-4">Mensaje Enviado con Éxito</h1>
+                    <p class="lead mb-4">Hemos recibido tu consulta y un abogado se pondrá en contacto contigo muy pronto.</p>
+                    <hr class="my-4">
+                    <a class="btn btn-primary btn-lg" href="{{ path('index') }}" role="button">Volver al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
