@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Mensaje - Justice{% endblock %}
+
+{% block body %}
+    <div class="container-fluid bg-page-header" style="margin-bottom: 90px;">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+                <h3 class="display-3 text-white text-uppercase">Gestión</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{ path('index') }}">Inicio</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Editar Mensaje #{{ contact.id }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center pb-2">
+                <h6 class="text-uppercase">Panel de Control</h6>
+                <h1 class="mb-4">Revisar Mensaje</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form bg-light rounded p-5">
+                        
+                        {{ form_start(form) }}
+                            
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <label>Nombre</label>
+                                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control p-4'}}) }}
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Apellido</label>
+                                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control p-4'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email del cliente</label>
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control p-4'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Asunto</label>
+                                {{ form_widget(form.subject, {'attr': {'class': 'form-control p-4'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mensaje Completo</label>
+                                {{ form_widget(form.message, {'attr': {'class': 'form-control p-4', 'rows': '6'}}) }}
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between">
+                                {# Renderizamos los botones que añadimos en el controlador #}
+                                {{ form_widget(form.delete) }}
+                                <div>
+                                    <a href="{{ path('index') }}" class="btn btn-secondary btn-lg mr-2">Cancelar</a>
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            
+                            {# Renderizamos el resto de campos ocultos (token csrf, etc) #}
+                            {{ form_rest(form) }}
+
+                        {{ form_end(form) }}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
