@@ -18,7 +18,14 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('name') //Añadimos esto para cumplir con el Reto I (luego de añadirlo, haríamos un migration)
+            ->add('name', null, [ 
+            //lo que hemos añadido es para evitar que que el usuario deje el nombre vacío o ponga números raros. 
+            //Para hacerlo más profesional, añadimos validación para que sea obligatorio, igual que hicimos con la contraseña
+                'constraints' => [
+                    new NotBlank(['message' => 'Por favor, introduce tu nombre']),
+                ],
+            ])
+            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

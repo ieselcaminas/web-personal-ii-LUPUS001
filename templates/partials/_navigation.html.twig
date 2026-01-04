@@ -26,7 +26,29 @@
             {# CONTACT #}
             <a href="{{ path('contact') }}" 
                class="nav-item nav-link {{ app.request.attributes.get('_route') == 'contact' ? 'active' : '' }}">Contact</a>
+        
+            {# --- LÓGICA DE USUARIO (3.5 Modificar la navegación)--- #}
+            {% if app.user %}
+                {# CASO: LOGEADO #}
+                {# Mostramos el nombre si existe, sino el email #}
+                <a href="{{ path('app_logout') }}" class="nav-item nav-link text-danger">
+                    <i class="fa fa-sign-out-alt"></i> Logout ({{ app.user.name ? app.user.name : app.user.email }})
+                </a>
+            {% else %}
+                {# CASO: NO LOGEADO #}
+                <a href="{{ path('app_login') }}" 
+                   class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_login' ? 'active' : '' }}">Login</a>
+                
+                <a href="{{ path('app_register') }}" 
+                   class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_register' ? 'active' : '' }}">Register</a>
+            {% endif %}
         </div>
         <a href="" class="btn btn-primary mr-3 d-none d-lg-block">Get A Quote</a>
     </div>
 </nav>
+
+{# 
+    En el archivo _navigation.html.twig actual, el contenedor padre es un <div class="navbar-nav ...">. Poner un <li> dentro de un <div> es HTML inválido 
+    y rompería la alineación flexbox de tu menú, haciendo que los botones de login se vean descolocados o fuera de sitio.
+    Es por eso que tenemos esa pequeña diferencia de el como se hace en la teoría dada en el GitHub del apartado de Blog 
+ #}

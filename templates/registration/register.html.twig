@@ -3,17 +3,33 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div id="register">
+    <div class="container">
+        <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
+            
+            {# Agregamos el campo Name que creamos en el Reto I #}
+            {{ form_row(registrationForm.name, {
+                'label': 'Name',
+                'attr': {'class': 'form-control'}
+            }) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_row(registrationForm.email, {
+                'attr': {'class': 'form-control'}
+            }) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            {{ form_row(registrationForm.plainPassword, {
+                'label': 'Password',
+                'attr': {'class': 'form-control'}
+            }) }}
+
+            {# El checkbox de términos #}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <br>
+            <button type="submit" class="btn btn-lg btn-primary sr-button">Register</button>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}
