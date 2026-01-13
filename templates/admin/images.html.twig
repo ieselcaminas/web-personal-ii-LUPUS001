@@ -6,8 +6,55 @@
    	  <div class="container">
    	    <div class="col-xs-12 col-sm-8 col-sm-push-2">
        	   <h1>Images</h1>
-       	   {{ form(form, {'attr': {'class':'form-horizontal'}}) }}
+
+		   {# Renderizamos el formulario #}
+       	   {{ form_start(form, {'attr': {'class':'form-horizontal'}}) }}
+				{{ form_widget(form) }}
+				<button class="btn btn-primary">Send</button>
+		   {{ form_end(form) }}
 			<hr class="divider">	
+
+			{# Listado de imágenes #}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">File</th>
+						<th scope="col">Views</th>
+						<th scope="col">Likes</th>
+						<th scope="col">Downloads</th>
+						<th scope="col">Category</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for image in images %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>
+							{# Uso del asset según el reto #}
+							<img src="{{ asset('images/index/gallery/' ~ image.file) }}"
+								alt="Image"
+								style="width: 100px; height: auto;"
+								class="img-thumbnail"
+							>
+							<br>
+							<small>{{ image.file  }}</small>
+						</td>
+						<td>{{ image.numViews }}</td>
+						<td>{{ image.numLikes }}</td>
+						<td>{{ image.numDownloads }}</td>
+						<td>
+							{# Accedemos al nombre de la categoría relacionada #}
+							{{ image.category ? image.category.name : 'No category' }}
+						</td>
+					</tr>
+					{% else %}
+						<tr>
+							<td colspan="6" class="text-center">No images uploaded yet</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
        	</div>   
    	  </div>
    </div>

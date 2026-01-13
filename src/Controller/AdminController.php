@@ -23,9 +23,13 @@ class AdminController extends AbstractController
     #[Route('/admin/images', name: 'app_images')]
     public function images(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
+        // 1. RECUPERAR LAS IMÁGENES EXISTENTES
+        $images = $doctrine->getRepository(Image::class)->findAll();
+
         $image = new Image();
         $form = $this->createForm(ImageFormType::class, $image);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
             if ($file) {
@@ -58,13 +62,17 @@ class AdminController extends AbstractController
                 // asignamos el nombre del archivo, que se llama `file`, a la entidad Image
                 $image->setFile($newFilename);
             }
-            $image = $form->getData();   
+            // $image = $form->getData(); //Esta línea no es necesaria porque $image ya tiene los datos vinculados   
             $entityManager = $doctrine->getManager();    
             $entityManager->persist($image);
             $entityManager->flush();
+
+            // 2. REDIRECCIÓN POST-SUBMIT (esto simplemente es una buena práctica)
+            return $this->redirectToRoute('app_images');
         }
         return $this->render('admin/images.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'images' => $images //3. PASAR LA VARIABLE A TWIG
         ));
     }
 
