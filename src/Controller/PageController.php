@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Contact;
 use App\Form\ContactFormType; //Clase del formulario
 use App\Repository\ContactRepository; 
@@ -16,19 +17,26 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Para añadir boton
 class PageController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ContactRepository $contactRepository): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        // RETO II: Lista de contactos en la portada
+        // 1. LÓGICA NUEVA (Punto 4.5): Obtener Categorías para la galería
+        $categoryRepository = $doctrine->getRepository(Category::class);
+        $categories = $categoryRepository->findAll();
+
+        // 2. LÓGICA ANTIGUA -> RETO II: Lista de contactos en la portada
         // Solo enviamos la lista si hay alguien logueado.
         $contacts = [];
+        $contactRepository = $doctrine->getRepository(Contact::class);
         
         // $this->getUser() devuelve el usuario actual o null si no está logueado
         if ($this->getUser()) {
             $contacts = $contactRepository->findAll();
         }
 
+        // 3. Renderizar pasando ambas variables
         return $this->render('page/index.html.twig', [
-            'contacts' => $contacts
+            'categories' => $categories, //Para la galería
+            'contacts' => $contacts //Para la lista de administración
         ]);
     }
 
@@ -51,12 +59,6 @@ class PageController extends AbstractController
         // En tu plantilla original este archivo se llamaba team.html
         return $this->render('page/team.html.twig', []);
     }
-
-    /* #[Route('/contact', name: 'contact')]
-    public function contact(): Response
-    {
-        return $this->render('page/contact.html.twig', []);
-    } */
 
     #[Route('/contact', name: 'contact')]
     public function contact(ManagerRegistry $doctrine, Request $request): Response
