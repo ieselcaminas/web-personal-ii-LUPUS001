@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+//Necesarios para el RETO 5.3
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 final class BlogController extends AbstractController
 {
     #[Route('/blog', name: 'app_blog')]
@@ -22,6 +26,7 @@ final class BlogController extends AbstractController
     }
     
     #[Route('/blog/new', name: 'new_post')]
+    #[IsGranted('ROLE_USER')] //Para que solo los usuarios logueados puedan entrar, con esto cumplimos "Comprobar si el usuario ha iniciado sesión" pero nos falta reenviarlo al login
     public function newPost(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
         $post = new Post();
@@ -30,6 +35,33 @@ final class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();   
             
+            // LÓGICA PARA LA SUBIDA DE IMAGEN (necesario para el RETO 5.3)
+            $file = $form->get('image')->getData(); // Recuperamos el archivo del formulario (campo 'image')
+
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // Limpiamos el nombre del archivo
+                $safeFilename = $slugger->slug($originalFilename);
+                // Creamos un nombre único
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    // Movemos el archivo al directorio configurado en services.yaml
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e){
+                    // Si falla la subida, lanzamos el siguiente error
+                    throw new \Exception('Ha habido un problema al subir la imagen');
+                }
+            }
+
+            // Guardamos el nombre del archivo en la entidad Post
+            $post->setImage($newFilename);
+            
+
+            /* LÓGICA DE CÓDIGO ANTERIOR AL RETO 5.3 */
             // Quitamos los caracteres especiales del título para crear el slug
             $post->setSlug($slugger->slug($post->getTitle()));
             
