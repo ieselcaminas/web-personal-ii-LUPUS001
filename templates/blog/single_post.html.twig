@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog Post{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            {% if not post %}
+                <h2>Post not found</h2>
+            {% else %}
+                <h1>{{post.title}}</h1>
+                <img src="{{asset('images/blog/' ~ post.image) }}" class="img-responsive" alt="Post Image">
+
+                <hr>
+
+                <p>{{post.content}}</p>
+
+                <hr>
+
+                <div class="text-muted">
+                    <p>Autor: {{post.postUser.name}}</p>
+                    <p>Fecha: {{post.publishedAt | date('d') }} {{ post.publishedAt | date('F') }}</p>
+                </div>
+            {% endif %}
+    
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

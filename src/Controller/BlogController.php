@@ -24,6 +24,16 @@ final class BlogController extends AbstractController
             'controller_name' => 'BlogController',
         ]);
     }
+
+    #[Route('/single_post/{slug}', name: 'single_post')]
+    public function post(ManagerRegistry $doctrine, $slug): Response
+    {
+        $repositorio = $doctrine->getRepository(Post::class);
+        $post = $repositorio->findOneBy(["slug"=>$slug]);
+        return $this->render('blog/single_post.html.twig', [
+            'post' => $post,
+        ]);
+    }
     
     #[Route('/blog/new', name: 'new_post')]
     #[IsGranted('ROLE_USER')] //Para que solo los usuarios logueados puedan entrar, con esto cumplimos "Comprobar si el usuario ha iniciado sesión" pero nos falta reenviarlo al login
@@ -48,19 +58,17 @@ final class BlogController extends AbstractController
                 try {
                     // Movemos el archivo al directorio configurado en services.yaml
                     $file->move(
-                        $this->getParameter('images_directory'),
+                        $this->getParameter('blog_directory'),
                         $newFilename
                     );
                 } catch (FileException $e){
                     // Si falla la subida, lanzamos el siguiente error
                     throw new \Exception('Ha habido un problema al subir la imagen');
                 }
+                // Guardamos el nombre del archivo en la entidad Post
+                $post->setImage($newFilename);
             }
-
-            // Guardamos el nombre del archivo en la entidad Post
-            $post->setImage($newFilename);
             
-
             /* LÓGICA DE CÓDIGO ANTERIOR AL RETO 5.3 */
             // Quitamos los caracteres especiales del título para crear el slug
             $post->setSlug($slugger->slug($post->getTitle()));
@@ -76,12 +84,9 @@ final class BlogController extends AbstractController
 
             $this->addFlash('success', '¡Entrada guardada correctamente!');
             
-            return $this->redirectToRoute('new_post');
-            
-            /* return $this->render('blog/new_post.html.twig', array(
-                'form' => $form->createView()    
-            )); */
+            return $this->redirectToRoute('single_post', ["slug" => $post->getSlug()]);
         }
+
         return $this->render('blog/new_post.html.twig', array(
             'form' => $form->createView()    
         ));
