@@ -1,0 +1,22 @@
+<div class="col-md-12 blog-post">
+    <div class="post-image">
+        {# Usamos la ruta configurada en services.yaml (blog_directory) #}
+        {# Si usas gallery, cambia 'blog' por 'index/gallery' #}
+        <img src="{{ asset('images/blog/' ~ post.image) }}" alt="{{ post.title }}" class="img-fluid">
+    </div>
+    <div class="post-content">
+        <span class="date">{{ post.publishedAt | date('d F Y') }}</span>
+        <h3><a href="{{ path('single_post', {'slug': post.slug}) }}">{{ post.title }}</a></h3>
+        
+        {# Mostramos solo los primeros 300 caracteres #}
+        <p>{{ post.content | slice(0, 300) ~ '...' }}</p>
+        
+        <div class="post-meta">
+            <span><i class="fa fa-heart"></i> {{ post.numLikes }} Likes</span>
+            <span><i class="fa fa-comment"></i> {{ post.numComments }} Comentarios</span>
+        </div>
+        
+        <a href="{{ path('single_post', {'slug': post.slug}) }}" class="btn btn-primary mt-3">Leer más</a>
+    </div>
+    <hr class="mb-5">
+</div>

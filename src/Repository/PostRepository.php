@@ -16,6 +16,17 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    /**
+     * Devuelve todos los posts ordenados por fecha (del más nuevo al más viejo)
+     */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Post[] Returns an array of Post objects
     //     */

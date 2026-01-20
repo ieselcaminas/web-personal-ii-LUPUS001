@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <div class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="section-title text-center">
+                        <h2>Nuestro Blog</h2>
+                        <p>Últimas novedades y noticias</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    {# BUCLE: Recorremos todos los posts que nos manda el controlador #}
+                    {% for post in posts %}
+                        
+                        {# Incluimos el diseño de cada post individual #}
+                        {{ include('partials/_post.html.twig', { 'post': post }) }}
+                    
+                    {% else %}
+                        {# Esto sale si la base de datos está vacía #}
+                        <div class="alert alert-info">
+                            No hay entradas publicadas todavía.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

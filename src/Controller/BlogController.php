@@ -17,11 +17,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class BlogController extends AbstractController
 {
-    #[Route('/blog', name: 'app_blog')]
-    public function index(): Response
+    #[Route('/blog/{page}', name: 'app_blog', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
+    public function index(ManagerRegistry $doctrine, int $page = 1): Response
     {
+        $repository = $doctrine->getRepository(Post::class);
+
+        // Obtenemos todos los posts ordenados por fecha
+        $posts = $repository->findAll();
+
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
+            'posts' => $posts,
         ]);
     }
 
