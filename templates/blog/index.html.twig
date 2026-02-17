@@ -16,8 +16,8 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    {# BUCLE: Recorremos todos los posts que nos manda el controlador #}
-                    {% for post in posts %}
+                    {# BUCLE: Recorremos los posts de la página actual #}
+                    {% for post in posts.results %}
                         
                         {# Incluimos el diseño de cada post individual #}
                         {{ include('partials/_post.html.twig', { 'post': post }) }}
@@ -28,6 +28,33 @@
                             No hay entradas publicadas todavía.
                         </div>
                     {% endfor %}
+
+                    {# Navegación de paginación #}
+                    {% if posts.hasToPaginate %}
+                        <div class="text-left">
+                            <ul class="pagination">
+                                {% if posts.hasPreviousPage %}
+                                    <li class="prev"><a href="{{ path('app_blog', {page: posts.previousPage}) }}" rel="previous"><i class="fa fw fa-long-arrow-left"></i> Previous</a></li>
+                                {% else %}
+                                    <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> Previous </span></li>
+                                {% endif %}
+
+                                {% for i in 1..posts.lastPage %}
+                                    {% if i == posts.currentPage %}
+                                        <li class="active"><span>{{ i }}</span></li>
+                                    {% else %}
+                                        <li><a href="{{ path('app_blog', {page: i}) }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if posts.hasNextPage %}
+                                    <li class="next"><a href="{{ path('app_blog', {page: posts.nextPage}) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
+                                {% else %}
+                                    <li class="next disabled"><span>Next <i class="fa fw fa-arrow-right"></i></span></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
                 
                 <div class="col-lg-4">

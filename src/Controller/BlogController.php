@@ -22,8 +22,8 @@ final class BlogController extends AbstractController
     {
         $repository = $doctrine->getRepository(Post::class);
 
-        // Obtenemos todos los posts ordenados por fecha
-        $posts = $repository->findAll();
+        // Obtenemos todos los posts paginados
+        $posts = $repository->findAllPaginated($page);
         $recents = $repository->findRecents();
 
         return $this->render('blog/index.html.twig', [

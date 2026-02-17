@@ -40,6 +40,18 @@ class PostRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @return \App\Pagination\Paginator
+     */
+    public function findAllPaginated(int $page): \App\Pagination\Paginator
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.publishedAt', 'DESC')
+            ;
+        //Devolvemos los resutados de la página
+        return (new \App\Pagination\Paginator($qb))->paginate($page);
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
