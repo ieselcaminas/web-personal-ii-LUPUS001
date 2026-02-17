@@ -22,6 +22,10 @@
             {# ATTORNEYS (team.html) #}
             <a href="{{ path('attorneys') }}" 
                class="nav-item nav-link {{ app.request.attributes.get('_route') == 'attorneys' ? 'active' : '' }}">Attorneys</a>
+
+            {# BLOG #}
+            <a href="{{ path('app_blog') }}" 
+               class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_blog' ? 'active' : '' }}">Blog</a>
             
             {# CONTACT #}
             <a href="{{ path('contact') }}" 
