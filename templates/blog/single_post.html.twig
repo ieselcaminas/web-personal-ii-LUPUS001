@@ -24,6 +24,14 @@
             {% endif %}
     
         </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-4 col-sm-pull-8">
+            <h3>Recent Posts</h3>
+            {% for recent in recents %}
+                {{ include ('partials/_recent_post.html.twig', {'recent': recent}) }}
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
