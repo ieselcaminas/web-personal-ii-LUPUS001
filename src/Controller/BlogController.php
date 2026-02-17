@@ -79,6 +79,20 @@ final class BlogController extends AbstractController
         return $this->redirectToRoute('single_post', ["slug" => $post->getSlug()]);
     }
     
+    #[Route('/blog/buscar', name: 'blog_buscar')]
+    public function buscar(ManagerRegistry $doctrine,  Request $request): Response
+    {
+        $repository = $doctrine->getRepository(Post::class);
+        $searchTerm = $request->query->get('searchTerm', '');
+        $posts = $repository->findByText($searchTerm);
+        $recents = $repository->findRecents();
+        return $this->render('blog/index.html.twig', [
+            'posts' => $posts,
+            'recents' => $recents,
+            'searchTerm' => $searchTerm
+        ]);
+    }
+
     #[Route('/blog/new', name: 'new_post')]
     #[IsGranted('ROLE_USER')] //Para que solo los usuarios logueados puedan entrar, con esto cumplimos "Comprobar si el usuario ha iniciado sesión" pero nos falta reenviarlo al login
     public function newPost(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response

@@ -16,8 +16,10 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    {# BUCLE: Recorremos los posts de la página actual #}
-                    {% for post in posts.results %}
+                    {# BUCLE: Recorremos los posts. Si es paginación usamos .results, si es búsqueda es un array directo #}
+                    {% set posts_list = posts.results is defined ? posts.results : posts %}
+                    
+                    {% for post in posts_list %}
                         
                         {# Incluimos el diseño de cada post individual #}
                         {{ include('partials/_post.html.twig', { 'post': post }) }}
@@ -29,8 +31,8 @@
                         </div>
                     {% endfor %}
 
-                    {# Navegación de paginación #}
-                    {% if posts.hasToPaginate %}
+                    {# Navegación de paginación (Solo si estamos paginando, no buscando) #}
+                    {% if posts.hasToPaginate is defined and posts.hasToPaginate %}
                         <div class="text-left">
                             <ul class="pagination">
                                 {% if posts.hasPreviousPage %}
@@ -58,6 +60,21 @@
                 </div>
                 
                 <div class="col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Search</h5>
+                        <div class="card-body">
+                            <form class="" action='{{ path('blog_buscar') }}'>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for..." name='searchTerm' value="{{ searchTerm is defined ? searchTerm : '' }}">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-secondary" type="submit">Go!</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <h3>Recent Posts</h3>
                     {% for recent in recents %}
                         {{ include ('partials/_recent_post.html.twig', {'recent': recent}) }}
