@@ -1,0 +1,8 @@
+<div class="media">
+    <div class="media-body">
+        <h4 class="media-heading">{{ comment.name }}
+            <small>{{ comment.publishedAt | date('F d, Y \\a\\t h:i A') }}</small>
+        </h4>
+        {{ comment.text }}
+    </div>
+</div>

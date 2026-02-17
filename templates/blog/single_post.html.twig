@@ -23,6 +23,15 @@
                 </div>
 
                 {{ include ('partials/_post_comments.html.twig') }}
+                
+                <div class="col-xs-12 col-sm-12">
+                     <h3>Comments</h3>
+                    {% for comment in post.comments %}
+                        {{ include('partials/_comment.html.twig', { 'comment': comment }) }}
+                    {% else %}
+                        <p>Be the first to comment!</p>
+                    {% endfor %}
+                </div>
             {% endif %}
     
         </div>
