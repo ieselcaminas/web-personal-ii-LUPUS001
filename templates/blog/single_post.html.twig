@@ -20,6 +20,10 @@
                 <div class="text-muted">
                     <p>Autor: {{post.postUser.name}}</p>
                     <p>Fecha: {{post.publishedAt | date('d') }} {{ post.publishedAt | date('F') }}</p>
+                    <ul class="list-inline">
+                        <li><a href="{{ path('post_like', {slug: post.slug}) }}">LIKE</a> <i class="fa fa-heart sr-icons"></i> {{post.numLikes}}</li>
+                        <li><a class="page-scroll" href="#form">COMMENT</a> <i class="fa fa-comments sr-icons"></i> {{post.numComments}} |</li>
+                    </ul>
                 </div>
 
                 {{ include ('partials/_post_comments.html.twig') }}

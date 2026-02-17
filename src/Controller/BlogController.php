@@ -63,6 +63,21 @@ final class BlogController extends AbstractController
             'commentForm' => $form->createView()
         ]);
     }
+
+    #[Route('/single_post/{slug}/like', name: 'post_like')]
+    public function like(ManagerRegistry $doctrine, $slug): Response
+    {
+        $repository = $doctrine->getRepository(Post::class);
+        $post = $repository->findOneBy(["slug"=>$slug]);
+        if ($post){
+            // Haz un método llamado like() en la entidad Post que aumente en 1 numLikes
+            $post->like();
+            $entityManager = $doctrine->getManager();    
+            $entityManager->persist($post);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('single_post', ["slug" => $post->getSlug()]);
+    }
     
     #[Route('/blog/new', name: 'new_post')]
     #[IsGranted('ROLE_USER')] //Para que solo los usuarios logueados puedan entrar, con esto cumplimos "Comprobar si el usuario ha iniciado sesión" pero nos falta reenviarlo al login

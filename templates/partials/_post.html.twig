@@ -12,8 +12,8 @@
         <p>{{ post.content | slice(0, 300) ~ '...' }}</p>
         
         <div class="post-meta">
-            <span><i class="fa fa-heart"></i> {{ post.numLikes }} Likes</span>
-            <span><i class="fa fa-comment"></i> {{ post.numComments }} Comentarios</span>
+            <li><a href="{{ path('post_like', {slug: post.slug}) }}">LIKE</a> <i class="fa fa-heart sr-icons"></i> {{post.numLikes}}</li>
+            <li><a class="page-scroll" href="#form">COMMENT</a> <i class="fa fa-comments sr-icons"></i> {{post.numComments}} |</li>
         </div>
         
         <a href="{{ path('single_post', {'slug': post.slug}) }}" class="btn btn-primary mt-3">Leer más</a>
