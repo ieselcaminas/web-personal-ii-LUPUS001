@@ -21,6 +21,8 @@
                     <p>Autor: {{post.postUser.name}}</p>
                     <p>Fecha: {{post.publishedAt | date('d') }} {{ post.publishedAt | date('F') }}</p>
                 </div>
+
+                {{ include ('partials/_post_comments.html.twig') }}
             {% endif %}
     
         </div>
