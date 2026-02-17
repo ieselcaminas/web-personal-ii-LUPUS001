@@ -15,7 +15,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-8">
                     {# BUCLE: Recorremos todos los posts que nos manda el controlador #}
                     {% for post in posts %}
                         
@@ -27,6 +27,13 @@
                         <div class="alert alert-info">
                             No hay entradas publicadas todavía.
                         </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-4">
+                    <h3>Recent Posts</h3>
+                    {% for recent in recents %}
+                        {{ include ('partials/_recent_post.html.twig', {'recent': recent}) }}
                     {% endfor %}
                 </div>
             </div>

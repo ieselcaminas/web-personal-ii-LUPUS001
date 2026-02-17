@@ -24,9 +24,11 @@ final class BlogController extends AbstractController
 
         // Obtenemos todos los posts ordenados por fecha
         $posts = $repository->findAll();
+        $recents = $repository->findRecents();
 
         return $this->render('blog/index.html.twig', [
             'posts' => $posts,
+            'recents' => $recents
         ]);
     }
 
