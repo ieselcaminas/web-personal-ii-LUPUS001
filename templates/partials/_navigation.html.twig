@@ -30,6 +30,9 @@
             {# --- LÓGICA DE USUARIO (3.5 Modificar la navegación)--- #}
             {% if app.user %}
                 {# CASO: LOGEADO #}
+                <a href="{{ path('new_post') }}" class="nav-item nav-link">
+                    <i class="fa fa-plus-square"></i> New Post
+                </a>
                 {# Mostramos el nombre si existe, sino el email #}
                 <a href="{{ path('app_logout') }}" class="nav-item nav-link text-danger">
                     <i class="fa fa-sign-out-alt"></i> Logout ({{ app.user.name ? app.user.name : app.user.email }})
